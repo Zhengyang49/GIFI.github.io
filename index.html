@@ -97,7 +97,8 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Framework Overview</h2>
     <div class="content has-text-centered">
-      <img src="static/images/framework.png" alt="GIFI method diagram" style="width:100%; max-width:800px;">
+      <div class="column is-four-fifths">
+      <img src="static/images/framework.png" alt="GIFI method diagram" style="width:100%; max-width:100%;">
       <p>We evaluate gender fairness in LLMs through a series of progressively complex tests, organized into four stages: Pronoun Recognition, Fairness in Distribution, 
         Stereotype and Role Assignment, and Consistency in Performance</p>
     </div>
@@ -108,15 +109,18 @@
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Ranking Results</h2>
     <div class="content has-text-centered">
+      <div class="column is-four-fifths">
       <p align="center">
-        <img src="static/images/GIFI-ranking.png" alt="Model comparison" width="50%">
-        <img src="static/images/GIFI.png" alt="Image 2" width="50%">
+        <img src="static/images/GIFI-ranking.png" alt="Model comparison" width="45%">
+        <img src="static/images/GIFI.png" alt="Image 2" width="45%">
       </p>
-      <img src="static/images/GIFI-individual.png" alt="Model comparison" style="width:100%; max-width:800px;">
+      <img src="static/images/GIFI-individual.png" alt="Model comparison" style="width:100%; max-width:100%;">
       <p>The GIFI rankings highlight models like GPT-4o, Claude 3, and DeepSeek V3 as top performers, demonstrating advanced capabilities in addressing complex tasks related to gender fairness. These models offer balanced performance across all pronoun categories. 
         Conversely, models such as Vicuna, GPT-2, and LLaMA 2 rank poorly, struggling particularly with handling neopronouns and overall gender fairness.
+
         
         To better understand individual model capabilities, we analyze their performance on each of the seven evaluation tasks. The radar chart offers a comparative view of all models across the seven dimensions, illustrating their diverse strengths and weaknesses. 
+
         
         The individual radar charts break down the performance of each model, highlighting that while some models perform well overall, they may exhibit strengths or weaknesses in specific tasks. For instance, Claude 4 excels in tasks such as sentiment neutrality and gender pronoun recognition, 
         but performs poorly in stereotypical association. GPT-4o mini demonstrates balanced performance across tasks, though with slightly lower scores in gender diversity recognition and occupational fairness. Phi-3 shows high fairness in stereotypical association and occupational fairness, 
