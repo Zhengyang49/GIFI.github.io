@@ -60,7 +60,7 @@
           <span class="icon"><i class="fas fa-file"></i></span>
           <span>Paper</span>
         </a>
-        <a href="https://github.com/YOUR_USERNAME/gifi" class="button is-dark is-rounded is-medium">
+        <a href="https://github.com/ZhengyangShan/GIFI" class="button is-dark is-rounded is-medium">
           <span class="icon"><i class="fab fa-github"></i></span>
           <span>Code</span>
         </a>
@@ -80,9 +80,13 @@
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <p>We present a comprehensive evaluation of gender fairness in large language models (LLMs), focusing on their ability to handle both binary and non-binary genders. While previous studies primarily focus on binary gender distinctions, we introduce the Gender Inclusivity Fairness Index (GIFI), a novel and comprehensive metric that quantifies the diverse gender inclusivity of LLMs. GIFI consists of a wide range of evaluations at different levels, from simply probing the model with respect to provided gender pronouns to testing various aspects of model generation and capabilities, revealing biases associated with varying gender identifiers. 
-            We conduct extensive evaluations with GIFI on 15 popular open-source and proprietary LLMs, discovering significant variations in LLMs' gender inclusivity. 
-            Our study highlights the importance of improving LLMs’ inclusivity, providing a critical benchmark for future advancements in gender fairness in generative models.</p>
+          <p>We present a comprehensive evaluation of gender fairness in large language models (LLMs), focusing on their ability to handle both binary and non-binary 
+            genders. While previous studies primarily focus on binary gender distinctions, we introduce the Gender Inclusivity Fairness Index (GIFI), a novel and 
+            comprehensive metric that quantifies the diverse gender inclusivity of LLMs. GIFI consists of a wide range of evaluations at different levels, from simply 
+            probing the model with respect to provided gender pronouns to testing various aspects of model generation and cognitive behaviors under different gender 
+            assumptions, revealing biases associated with varying gender identifiers. We conduct extensive evaluations with GIFI on 22 prominent open-source and 
+            proprietary LLMs of varying sizes and capabilities, discovering significant variations in LLMs' gender inclusivity. Our study highlights the importance 
+            of improving LLMs’ inclusivity, providing a critical benchmark for future advancements in gender fairness in generative models.</p>
         </div>
       </div>
     </div>
@@ -94,7 +98,8 @@
     <h2 class="title is-3 has-text-centered">Method Overview</h2>
     <div class="content has-text-centered">
       <img src="static/images/gifi_diagram.png" alt="GIFI method diagram" style="width:100%; max-width:800px;">
-      <p>GIFI evaluates language models along seven axes: Gender Diversity Recognition, Sentiment Neutrality, Non-Toxicity Score, Counterfactual Fairness, Stereotypical Association, Occupational Fairness, and Performance Equality.</p>
+      <p>We evaluate gender fairness in LLMs through a series of progressively complex tests, organized into four stages: Pronoun Recognition, Fairness in Distribution, 
+        Stereotype and Role Assignment, and Consistency in Performance</p>
     </div>
   </div>
 </section>
@@ -104,7 +109,14 @@
     <h2 class="title is-3 has-text-centered">Model Comparison Results</h2>
     <div class="content has-text-centered">
       <img src="static/images/model_comparison.png" alt="Model comparison" style="width:100%; max-width:800px;">
-      <p>Our results highlight varying levels of gender inclusivity across 14 major LLMs, with some models scoring well below the fairness threshold.</p>
+      <p>The GIFI rankings highlight models like GPT-4o, Claude 3, and DeepSeek V3 as top performers, demonstrating advanced capabilities in addressing complex tasks related to gender fairness. These models offer balanced performance across all pronoun categories. 
+        Conversely, models such as Vicuna, GPT-2, and LLaMA 2 rank poorly, struggling particularly with handling neopronouns and overall gender fairness.
+        
+        To better understand individual model capabilities, we analyze their performance on each of the seven evaluation tasks. The radar chart offers a comparative view of all models across the seven dimensions, illustrating their diverse strengths and weaknesses. 
+        
+        The individual radar charts break down the performance of each model, highlighting that while some models perform well overall, they may exhibit strengths or weaknesses in specific tasks. For instance, Claude 4 excels in tasks such as sentiment neutrality and gender pronoun recognition, 
+        but performs poorly in stereotypical association. GPT-4o mini demonstrates balanced performance across tasks, though with slightly lower scores in gender diversity recognition and occupational fairness. Phi-3 shows high fairness in stereotypical association and occupational fairness, 
+        indicating a tendency to mitigate traditional gender roles.</p>
     </div>
   </div>
 </section>
@@ -127,7 +139,7 @@
       <a class="icon-link" href="static/gifi_paper.pdf">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/YOUR_USERNAME/gifi">
+      <a class="icon-link" href="https://github.com/ZhengyangShan/GIFI">
         <i class="fab fa-github"></i>
       </a>
     </div>
