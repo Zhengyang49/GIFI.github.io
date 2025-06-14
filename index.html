@@ -103,11 +103,13 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function () {
-  if ($.fn.dataTable.isDataTable('#gifiTable')) {
-    $('#gifiTable').DataTable().destroy(); // <-- destroy any existing instance
+  const tableEl = $('#gifiTable');
+
+  if ($.fn.DataTable.isDataTable(tableEl)) {
+    tableEl.DataTable().clear().destroy();
   }
 
-  const table = $('#gifiTable').DataTable({
+  const table = tableEl.DataTable({
     paging: false,
     fixedHeader: true,
     info: false,
@@ -117,8 +119,7 @@
 
   const gifiValues = [];
   table.rows().every(function () {
-    const data = this.data();
-    gifiValues.push(parseFloat(data[8]));
+    gifiValues.push(parseFloat(this.data()[8]));
   });
 
   const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
