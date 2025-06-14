@@ -69,10 +69,18 @@
       padding: 2rem;
       box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
+    .dataTables_wrapper {
+      max-width: 100%;
+      overflow-x: auto;
+    }
     table.dataTable {
       width: 100% !important;
       border-collapse: collapse;
       margin-top: 1rem;
+    }
+    .highlight-top {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -85,7 +93,38 @@
   });
 </script>
 
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function() {
+    const table = $('#gifiTable').DataTable({
+      paging: false,
+      fixedHeader: true,
+      info: false,
+      searching: true,
+      order: [[7, 'desc']]
+    });
+
+    // Highlight top 3 GIFI values in red
+    const gifiValues = [];
+    table.rows().every(function () {
+      const data = this.data();
+      gifiValues.push(parseFloat(data[8]));
+    });
+
+    const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
+    table.rows().every(function () {
+      const row = this.node();
+      const gifi = parseFloat(this.data()[8]);
+      if (top3.includes(gifi)) {
+        $('td', row).eq(8).addClass('highlight-top');
+      }
+    });
+  });
+</script>
+
 <!-- rest of document remains unchanged -->
+
 
   
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
