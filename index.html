@@ -93,44 +93,35 @@
 <body>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  window.addEventListener('load', () => {
-    AOS.init({ once: false, duration: 800 });
-  });
-</script>
-
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
-  let gifiTableInitialized = false;
-  $(document).ready(function() {
-    if (!$.fn.DataTable.isDataTable('#gifiTable')) {
-      const table = $('#gifiTable').DataTable({
-        paging: false,
-        fixedHeader: true,
-        info: false,
-        searching: true,
-        order: [[7, 'desc']]
-      });
+  window.addEventListener('load', () => {
+    AOS.init({ once: false, duration: 800 });
 
-      const gifiValues = [];
-      table.rows().every(function () {
-        const data = this.data();
-        gifiValues.push(parseFloat(data[8]));
-      });
+    const table = $('#gifiTable').DataTable({
+      paging: false,
+      fixedHeader: true,
+      info: false,
+      searching: true,
+      order: [[7, 'desc']]
+    });
 
-      const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
-      table.rows().every(function () {
-        const row = this.node();
-        const gifi = parseFloat(this.data()[8]);
-        if (top3.includes(gifi)) {
-          $('td', row).eq(0).addClass('highlight-top');
-          $('td', row).eq(8).addClass('highlight-top');
-        }
-      });
+    const gifiValues = [];
+    table.rows().every(function () {
+      const data = this.data();
+      gifiValues.push(parseFloat(data[8]));
+    });
 
-      gifiTableInitialized = true;
-    }
+    const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
+    table.rows().every(function () {
+      const row = this.node();
+      const gifi = parseFloat(this.data()[8]);
+      if (top3.includes(gifi)) {
+        $('td', row).eq(0).addClass('highlight-top');
+        $('td', row).eq(8).addClass('highlight-top');
+      }
+    });
   });
 </script>
 
