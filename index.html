@@ -102,42 +102,46 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
+  <script>
   $(document).ready(function () {
-  const tableEl = $('#gifiTable');
+    const tableEl = $('#gifiTable');
 
-  if ($.fn.DataTable.isDataTable(tableEl)) {
-    tableEl.DataTable().clear().destroy();
-  }
-
-  const table = tableEl.DataTable({
-    paging: false,
-    fixedHeader: true,
-    info: false,
-    searching: true,
-    order: [[7, 'desc']]
-  });
-
-  const gifiValues = [];
-  table.rows().every(function () {
-    gifiValues.push(parseFloat(this.data()[8]));
-  });
-
-  const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
-  table.rows().every(function () {
-    const row = this.node();
-    const gifi = parseFloat(this.data()[8]);
-    if (top3.includes(gifi)) {
-      $('td', row).eq(0).addClass('highlight-top');
-      $('td', row).eq(8).addClass('highlight-top');
+    // Destroy if already initialized
+    if ($.fn.DataTable.isDataTable(tableEl)) {
+      tableEl.DataTable().clear().destroy();
     }
+
+    // Initialize only once
+    const table = tableEl.DataTable({
+      paging: false,
+      fixedHeader: true,
+      info: false,
+      searching: true,
+      order: [[7, 'desc']]
+    });
+
+    // Highlight top 3
+    const gifiValues = [];
+    table.rows().every(function () {
+      gifiValues.push(parseFloat(this.data()[8]));
+    });
+
+    const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
+    table.rows().every(function () {
+      const row = this.node();
+      const gifi = parseFloat(this.data()[8]);
+      if (top3.includes(gifi)) {
+        $('td', row).eq(0).addClass('highlight-top');
+        $('td', row).eq(8).addClass('highlight-top');
+      }
+    });
   });
-});
+</script>
+
 </script>
 
 
 <!-- rest of document remains unchanged -->
-
-
 
   
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
@@ -234,7 +238,7 @@
 </section>
 
 <section class="section" id="gifi-leaderboard">
-  <div class="container is-max-desktop content">
+  <div class="container is-max-desktop content" data-aos="fade-up">
     <h2>GIFI Evaluation Leaderboard</h2>
     <table id="gifiTable" class="display">
       <thead>
@@ -247,7 +251,7 @@
           <th>SA</th>
           <th>OF</th>
           <th>PE</th>
-          <th>GIFI</th>
+          <th>**GIFI**</th>
         </tr>
       </thead>
       <tbody>
@@ -278,20 +282,15 @@
   </div>
 </section>
 
+
+<div class="box">This is a Bulma box</div>
+<div class="card">...Bulma card layout...</div>
+<div class="glass-card">This is your glass style</div>
+<div class="frosted-card">Frosted glass card</div>
+<div class="shadow-card">Shadow effect</div>
+<div class="gradient-card">Gradient background card</div>
+
   
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('#gifiTable').DataTable({
-      paging: false,
-      fixedHeader: true,
-      info: false,
-      searching: true,
-      order: [[7, 'desc']]
-    });
-  });
-</script>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
