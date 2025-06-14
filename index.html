@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
   <style>
     body {
       background: linear-gradient(135deg, #e0f7fa, #fce4ec);
@@ -68,6 +69,11 @@
       padding: 2rem;
       box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     }
+    table.dataTable {
+      width: 100% !important;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +84,9 @@
     AOS.init({ once: false, duration: 800 });
   });
 </script>
+
+<!-- rest of document remains unchanged -->
+
   
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
