@@ -1,68 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Bulma Card Types Demo</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <meta charset="utf-8">
+  <meta name="description" content="GIFI: A multilevel framework for evaluating gender diversity in large language models">
+  <meta name="keywords" content="GIFI, Gender Fairness, LLMs, NLP">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gender Inclusivity Fairness Index (GIFI): A Multilevel Framework for Evaluating Gender Diversity in Large Language Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
   <style>
     body {
-      padding: 2rem;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+      font-family: 'Google Sans', 'Noto Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      min-height: 100vh;
     }
-    .spacer {
-      margin-bottom: 2rem;
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .publication-links .button {
+      transition: all 0.3s ease;
+    }
+    .publication-links .button:hover {
+      background-color: #3273dc;
+      border-color: #3273dc;
+      color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    .publication-links .button:hover .icon i {
+      color: #ffffff;
+    }
+    .icon i {
+      font-family: 'Font Awesome 6 Free',  'Font Awesome 6 Brands' !important;
+      font-weight: 900 !important;
+      display: inline-block !important;
+      transition: transform 0.3s ease;
+    }
+    .icon-link i:hover {
+      transform: scale(1.2);
+      color: #3273dc;
+    }
+    section.section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    .hero-body {
+      padding-bottom: 2rem;
+    }
+    .has-text-left p, .has-text-left h2, .has-text-left li {
+      text-align: left !important;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .dataTables_wrapper {
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+      width: 100%;
+      max-width: 300px;
+    }
+    table.dataTable {
+      width: 100% !important;
+      max-width: 100%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    
+    #gifiTable tbody tr:hover {
+      background-color: #f0f8ff;
+      cursor: pointer;
+    }
+    #gifiTable td:last-child {
+      font-weight: bold;
+    }
+
+    .highlight-top {
+      color: red;
+      font-weight: 800;
+    }
+
     }
   </style>
 </head>
 <body>
 
-  <h1 class="title is-3">🧪 Bulma 卡片组件展示</h1>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    AOS.init({ once: false, duration: 800 });
+  });
+</script>
 
-  <!-- box -->
-  <div class="box spacer">
-    <strong>box：</strong> 这是一个简单带边框和阴影的容器，用于包裹基本内容。
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    if (!$.fn.DataTable.isDataTable('#gifiTable')) {
+      const table = $('#gifiTable').DataTable({
+        paging: false,
+        fixedHeader: true,
+        info: false,
+        searching: true,
+        order: [[8, 'desc']] // GIFI column
+      });
+
+      // Get GIFI values
+      const gifiValues = [];
+      table.rows().every(function () {
+        gifiValues.push(parseFloat(this.data()[8]));
+      });
+
+      // Find top 3
+      const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
+
+      table.rows().every(function () {
+        const row = this.node();
+        const gifi = parseFloat(this.data()[8]);
+        if (top3.includes(gifi)) {
+          $('td', row).eq(0).addClass('highlight-top'); // Model
+          $('td', row).eq(8).addClass('highlight-top'); // GIFI
+        }
+      });
+    }
+  });
+</script>
+
+<!-- rest of document remains unchanged -->
+
+  
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
+</nav>
 
-  <!-- card -->
-  <div class="card spacer">
-    <header class="card-header">
-      <p class="card-header-title">card：这是标题</p>
-    </header>
-    <div class="card-content">
-      <div class="content">
-        这是 card 内容区。你可以在这里放文字、图片或其他内容。
+<section class="hero is-white">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1">Gender Inclusivity Fairness Index (GIFI)</h1>
+      <p class="subtitle is-3">A Multilevel Framework for Evaluating Gender Diversity in Large Language Models</p>
+      <p class="is-size-5">
+        <a href="https://zhengyangshan.github.io">Zhengyang Shan</a><sup>1</sup>,
+        <a href="https://www.emilyruthdiana.com">Emily Ruth Diana</a><sup>2</sup>,
+        <a href="https://joezhouai.com">Jiawei Zhou</a><sup>3</sup>
+      </p>
+      <p class="is-size-6">
+        <sup>1</sup>Boston University, <sup>2</sup>Carnegie Mellon University, <sup>3</sup>Stony Brook University
+      </p>
+      <div class="publication-links mt-4">
+        <a href="static/gifi_paper.pdf" class="button is-dark is-rounded is-medium">
+          <span class="icon"><i class="fas fa-file"></i></span>
+          <span>Paper</span>
+        </a>
+        <a href="https://github.com/ZhengyangShan/GIFI" class="button is-dark is-rounded is-medium">
+          <span class="icon"><i class="fa-brands fa-github"></i></span>
+          <span>Code</span>
+        </a>
+        <a href="https://github.com/ZhengyangShan/GIFI/tree/main/data" class="button is-dark is-rounded is-medium">
+          <span class="icon"><i class="fas fa-database"></i></span>
+          <span>Dataset</span>
+        </a>
       </div>
     </div>
-    <footer class="card-footer">
-      <a href="#" class="card-footer-item">查看</a>
-      <a href="#" class="card-footer-item">编辑</a>
-    </footer>
   </div>
+</section>
 
-  <!-- panel -->
-  <nav class="panel spacer">
-    <p class="panel-heading">panel：面板标题</p>
-    <a class="panel-block is-active">项目 1</a>
-    <a class="panel-block">项目 2</a>
-    <a class="panel-block">项目 3</a>
-  </nav>
-
-  <!-- message -->
-  <article class="message is-info spacer">
-    <div class="message-header">
-      <p>message：信息提示</p>
-      <button class="delete" aria-label="delete"></button>
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-left">Abstract</h2>
+    <div class="glass-card" data-aos="fade-up">
+      <p class="has-text-left mt-4">
+        We present a comprehensive evaluation of gender fairness in large language models (LLMs), focusing on their ability to handle both binary and non-binary genders. 
+        While previous studies primarily focus on binary gender distinctions, we introduce the Gender Inclusivity Fairness Index (GIFI), a novel and comprehensive metric that quantifies 
+        the diverse gender inclusivity of LLMs. GIFI consists of a wide range of evaluations at different levels, from simply probing the model with respect to provided 
+        gender pronouns to testing various aspects of model generation and cognitive behaviors under different gender assumptions, revealing biases associated with varying 
+        gender identifiers. We conduct extensive evaluations with GIFI on 22 prominent open-source and proprietary LLMs of varying sizes and capabilities, discovering significant 
+        variations in LLMs' gender inclusivity. Our study highlights the importance of improving LLMs’ inclusivity, providing a critical benchmark for future advancements in gender fairness in generative models.
+      </p>
     </div>
-    <div class="message-body">
-      这是一个带有头部和内容区的提示框，可用于通知用户重要信息。
-    </div>
-  </article>
-
-  <!-- notification -->
-  <div class="notification is-success spacer">
-    <button class="delete"></button>
-    notification：这是一个成功通知框，适合提示操作成功。
   </div>
+</section>
+  
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-left">Framework Overview</h2>
+    <div class="glass-card" data-aos="fade-up">
+      <img src="static/images/framework.png" alt="GIFI method diagram" style="width:100%; max-width:100%;">
+      <p class="has-text-left mt-4">
+        We evaluate gender fairness in LLMs through a series of progressively complex tests, organized into four stages: Pronoun Recognition, Fairness in Distribution, 
+        Stereotype and Role Assignment, and Consistency in Performance.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-left">Ranking Results</h2>
+    <div class="glass-card" data-aos="fade-up">
+      <p align="center">
+        <img src="static/images/GIFI-ranking.png" alt="Model comparison" width="45%">
+        <img src="static/images/GIFI.png" alt="Image 2" width="45%">
+      </p>
+      <img src="static/images/GIFI-individual.png" alt="Model comparison" style="width:100%; max-width:100%;">
+      <p class="has-text-left mt-4">
+        The GIFI rankings highlight models like GPT-4o, Claude 3, and DeepSeek V3 as top performers, demonstrating advanced capabilities in addressing complex tasks related to gender fairness. These models offer balanced performance across all pronoun categories.
+        Conversely, models such as Vicuna, GPT-2, and LLaMA 2 rank poorly, struggling particularly with handling neopronouns and overall gender fairness.
+
+        To better understand individual model capabilities, we analyze their performance on each of the seven evaluation tasks. The radar chart offers a comparative view of all models across the seven dimensions, illustrating their diverse strengths and weaknesses.
+
+        The individual radar charts break down the performance of each model, highlighting that while some models perform well overall, they may exhibit strengths or weaknesses in specific tasks. For instance, Claude 4 excels in tasks such as sentiment neutrality and gender pronoun recognition, 
+        but performs poorly in stereotypical association. GPT-4o mini demonstrates balanced performance across tasks, though with slightly lower scores in gender diversity recognition and occupational fairness. Phi-3 shows high fairness in stereotypical association and occupational fairness, 
+        indicating a tendency to mitigate traditional gender roles.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gifi-leaderboard">
+  <div class="container is-max-desktop content" data-aos="fade-up">
+    <h2>GIFI Evaluation Leaderboard</h2>
+    <table id="gifiTable" class="display">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>GDR</th>
+          <th>SN</th>
+          <th>NTS</th>
+          <th>CF</th>
+          <th>SA</th>
+          <th>OF</th>
+          <th>PE</th>
+          <th>GIFI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Gemini 1.5 Pro</td><td>0.55</td><td>0.78</td><td>0.92</td><td>0.74</td><td>0.37</td><td>0.36</td><td>0.97</td><td>0.67</td></tr>
+        <tr><td>Gemini 1.5 Flash</td><td>0.55</td><td>0.76</td><td>0.92</td><td>0.87</td><td>0.18</td><td>0.08</td><td>0.96</td><td>0.62</td></tr>
+        <tr><td>Claude 3 🥈</td><td>0.67</td><td>0.78</td><td>0.95</td><td>0.87</td><td>0.31</td><td>0.42</td><td>0.97</td><td>0.71</td></tr>
+        <tr><td>GPT-4o mini</td><td>0.61</td><td>0.81</td><td>0.94</td><td>0.99</td><td>0.36</td><td>0.13</td><td>0.95</td><td>0.68</td></tr>
+        <tr><td>GPT-4o 🥇</td><td>0.76</td><td>0.77</td><td>0.96</td><td>0.86</td><td>0.37</td><td>0.41</td><td>0.96</td><td>0.73</td></tr>
+        <tr><td>GPT 4</td><td>0.71</td><td>0.78</td><td>0.93</td><td>0.84</td><td>0.34</td><td>0.14</td><td>0.96</td><td>0.67</td></tr>
+        <tr><td>GPT 3.5 turbo</td><td>0.64</td><td>0.73</td><td>0.93</td><td>0.82</td><td>0.35</td><td>0.14</td><td>0.96</td><td>0.65</td></tr>
+        <tr><td>GPT 2</td><td>0.27</td><td>0.69</td><td>0.81</td><td>0.32</td><td>0.64</td><td>0.57</td><td>0.53</td><td>0.55</td></tr>
+        <tr><td>Gemma 2</td><td>0.51</td><td>0.67</td><td>0.82</td><td>0.36</td><td>0.47</td><td>0.33</td><td>0.93</td><td>0.58</td></tr>
+        <tr><td>LLaMA 3</td><td>0.63</td><td>0.69</td><td>0.85</td><td>0.62</td><td>0.41</td><td>0.15</td><td>0.95</td><td>0.61</td></tr>
+        <tr><td>LLaMA 2</td><td>0.59</td><td>0.67</td><td>0.84</td><td>0.58</td><td>0.39</td><td>0.09</td><td>0.81</td><td>0.57</td></tr>
+        <tr><td>Vicuna</td><td>0.31</td><td>0.67</td><td>0.82</td><td>0.39</td><td>0.39</td><td>0.20</td><td>0.65</td><td>0.49</td></tr>
+        <tr><td>Zephyr</td><td>0.40</td><td>0.65</td><td>0.85</td><td>0.38</td><td>0.59</td><td>0.42</td><td>0.70</td><td>0.57</td></tr>
+        <tr><td>Mistral</td><td>0.51</td><td>0.70</td><td>0.81</td><td>0.37</td><td>0.56</td><td>0.38</td><td>0.82</td><td>0.59</td></tr>
+        <tr><td>Phi-3</td><td>0.50</td><td>0.73</td><td>0.85</td><td>0.25</td><td>0.72</td><td>0.59</td><td>0.79</td><td>0.63</td></tr>
+        <tr><td>Gemma 3</td><td>0.65</td><td>0.70</td><td>0.91</td><td>0.60</td><td>0.47</td><td>0.20</td><td>0.96</td><td>0.64</td></tr>
+        <tr><td>Qwen 3</td><td>0.59</td><td>0.76</td><td>0.90</td><td>0.53</td><td>0.39</td><td>0.20</td><td>0.94</td><td>0.61</td></tr>
+        <tr><td>Yi-1.5</td><td>0.61</td><td>0.67</td><td>0.84</td><td>0.26</td><td>0.56</td><td>0.35</td><td>0.92</td><td>0.60</td></tr>
+        <tr><td>Gemini 2.0 Flash</td><td>0.70</td><td>0.77</td><td>0.87</td><td>0.53</td><td>0.40</td><td>0.24</td><td>0.99</td><td>0.64</td></tr>
+        <tr><td>Claude Sonnet 4</td><td>0.80</td><td>0.83</td><td>0.93</td><td>0.63</td><td>0.34</td><td>0.17</td><td>0.97</td><td>0.67</td></tr>
+        <tr><td>DeepSeek V3 🥉</td><td>0.67</td><td>0.68</td><td>0.93</td><td>0.89</td><td>0.56</td><td>0.18</td><td>0.99</td><td>0.70</td></tr>
+        <tr><td>LLaMA 4</td><td>0.53</td><td>0.78</td><td>0.93</td><td>0.76</td><td>0.12</td><td>0.08</td><td>0.93</td><td>0.59</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+  
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{shan2025gifi,
+  title={Gender Inclusivity Fairness Index (GIFI): A Multilevel Framework for Evaluating Gender Diversity in Large Language Models},
+  author={Shan, Zhengyang and Diana, Emily Ruth and Zhou, Jiawei},
+  booktitle={Proceedings of ACL},
+  year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="static/gifi_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/ZhengyangShan/GIFI">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>This website is adapted from the <a href="https://nerfies.github.io/">NeRFies</a> project page, licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
