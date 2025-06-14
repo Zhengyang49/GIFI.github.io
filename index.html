@@ -84,9 +84,20 @@
       border-collapse: collapse;
       margin-top: 1rem;
     }
+    
+    #gifiTable tbody tr:hover {
+      background-color: #f0f8ff;
+      cursor: pointer;
+    }
+    #gifiTable td:last-child {
+      font-weight: bold;
+    }
+
     .highlight-top {
       color: red;
-      font-weight: bold;
+      font-weight: 800;
+    }
+
     }
   </style>
 </head>
@@ -103,37 +114,33 @@
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
   $(document).ready(function () {
-    const tableEl = $('#gifiTable');
+    if (!$.fn.DataTable.isDataTable('#gifiTable')) {
+      const table = $('#gifiTable').DataTable({
+        paging: false,
+        fixedHeader: true,
+        info: false,
+        searching: true,
+        order: [[8, 'desc']] // GIFI column
+      });
 
-    // Destroy if already initialized
-    if ($.fn.DataTable.isDataTable(tableEl)) {
-      tableEl.DataTable().clear().destroy();
+      // Get GIFI values
+      const gifiValues = [];
+      table.rows().every(function () {
+        gifiValues.push(parseFloat(this.data()[8]));
+      });
+
+      // Find top 3
+      const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
+
+      table.rows().every(function () {
+        const row = this.node();
+        const gifi = parseFloat(this.data()[8]);
+        if (top3.includes(gifi)) {
+          $('td', row).eq(0).addClass('highlight-top'); // Model
+          $('td', row).eq(8).addClass('highlight-top'); // GIFI
+        }
+      });
     }
-
-    // Initialize only once
-    const table = tableEl.DataTable({
-      paging: false,
-      fixedHeader: true,
-      info: false,
-      searching: true,
-      order: [[7, 'desc']]
-    });
-
-    // Highlight top 3
-    const gifiValues = [];
-    table.rows().every(function () {
-      gifiValues.push(parseFloat(this.data()[8]));
-    });
-
-    const top3 = [...gifiValues].sort((a, b) => b - a).slice(0, 3);
-    table.rows().every(function () {
-      const row = this.node();
-      const gifi = parseFloat(this.data()[8]);
-      if (top3.includes(gifi)) {
-        $('td', row).eq(0).addClass('highlight-top');
-        $('td', row).eq(8).addClass('highlight-top');
-      }
-    });
   });
 </script>
 
@@ -247,7 +254,7 @@
           <th>SA</th>
           <th>OF</th>
           <th>PE</th>
-          <th>**GIFI**</th>
+          <th>GIFI</th>
         </tr>
       </thead>
       <tbody>
